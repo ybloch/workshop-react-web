@@ -1,9 +1,11 @@
+const SERVER_URL = "http://localhost:8000";
+
 export const getTasks = () => {
-  return fetch("/api/tasks").then((res) => res.json());
+  return fetch(`${SERVER_URL}/api/v1/tasks`).then((res) => res.json());
 };
 
 export const createTask = (task) => {
-  return fetch("/api/tasks", {
+  return fetch(`${SERVER_URL}/api/v1/tasks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +15,7 @@ export const createTask = (task) => {
 };
 
 export const updateTask = (task) => {
-  return fetch(`/api/tasks/${task.id}`, {
+  return fetch(`${SERVER_URL}/api/v1/tasks/${task._id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +25,7 @@ export const updateTask = (task) => {
 };
 
 export const deleteTask = (taskId) => {
-  return fetch(`/api/tasks/${taskId}`, {
+  return fetch(`${SERVER_URL}/api/v1/tasks/${taskId}`, {
     method: "DELETE",
   });
 };
