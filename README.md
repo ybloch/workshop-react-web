@@ -41,3 +41,21 @@ For VSCODE backend debugging:
             "justMyCode": true
         }
 ```
+To run with docker, copy the file `.env.exmaple` and call it `.env`, then edit the values.
+To build all dockers run:
+```bash
+docker-compose build
+# for debug you can run
+docker-compose build --progress plain --no-cache backend
+```
+To start all dockers you can run: 
+```bash
+docker-compose up
+# OR you can make it better with
+docker-compose up -d && docker-compose ps && docker-compose logs -f
+```
+To list all volumes on your docker daemon:
+```bash
+docker volume ls
+docker volume rm <VOLUME_NAME>
+```

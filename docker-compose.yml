@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  mongodb:
+    image: mongo:6.0.5
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    env_file: .env
+
+  backend:
+    image: workshop-react/backend:1.0.0
+    build:
+      dockerfile: backend/Dockerfile
+      context: .
+    ports:
+      - 8000:8000
+    env_file: .env
+
+  frontend:
+    image: workshop-react/frontend:1.0.0
+    build:
+      dockerfile: frontend/Dockerfile
+      context: .
+    ports:
+      - 3000:3000
+    env_file: .env
+
+volumes:
+  mongo_data:
+  

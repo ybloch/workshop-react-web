@@ -1,11 +1,11 @@
 # credit: https://github.com/mongodb-developer/pymongo-fastapi-crud
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from dotenv import dotenv_values
 from routes import router as task_router
 
-config = dotenv_values(".env")
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -21,7 +21,7 @@ app.add_middleware(
 @app.on_event("startup")
 def startup_db_client():
     app.mongodb_client = MongoClient(
-        config.get("MONGO_IP"), username=config.get("MONGO_USER"), password=config.get("MONGO_PASSWORD"))
+        os.getenv("MONGODB_IP"), username=os.getenv("MONGODB_USERNAME"), password=os.getenv("MONGODB_PASSWORD"))
     app.database = app.mongodb_client["bootcamp"]
 
 
