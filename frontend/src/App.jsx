@@ -11,9 +11,9 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    getTasks().then((tasks) => {
-      console.log(tasks);
-      setTasks(tasks);
+    getTasks().then((tasksFromServer) => {
+      console.log(tasksFromServer);
+      setTasks(tasksFromServer);
     });
   }, []);
 
