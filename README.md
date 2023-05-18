@@ -1,31 +1,53 @@
-## Demo exercise for web server using React and FastAPI
+# Demo web server using React and FastAPI
 
-### Getting started:
+## Prerequisites
 
-#### Install Python libraries:
+- Python 3.8+ and pip
+- NodeJS 18+ and npm
+- MongoDB server
+
+## Getting started:
+
+### Install Python and Javascript libraries:
 
 ```
-cd backend
+cd ./backend
 pip3 install -r requirements.txt
 cd ../frontend
 npm install
 ```
 
-Run the API server:
+### Edit `.env` file with Database connection details:
 
 ```
-cd backend
+cp ./backend/.env.example ./backend/.env
+```
+
+Enter the values:
+
+```
+MONGO_IP=localhost
+MONGO_USER=*****
+MONGO_PASSWORD=*****
+```
+
+### Run the API server:
+
+```
+cd ./backend
 uvicorn main:app
 ```
 
-Run the Frontend react dev server:
+### Run the Frontend react dev server:
 
 ```
-cd frontend
+cd ./frontend
 npm start
 ```
 
-For VSCODE backend debugging:
+## Debugging
+
+### For VSCODE backend debugging:
 
 ```
        {
@@ -41,25 +63,35 @@ For VSCODE backend debugging:
             "justMyCode": true
         }
 ```
+
+## Deploy
+
 To run with docker, copy the file `.env.exmaple` and call it `.env`, then edit the values.
 To build all dockers run:
+
 ```bash
 docker-compose build
 # for debug you can run
 docker-compose build --progress plain --no-cache backend
 ```
-To start all dockers you can run: 
+
+To start all dockers you can run:
+
 ```bash
 docker-compose up
 # OR you can make it better with
 docker-compose up -d && docker-compose ps && docker-compose logs -f
 ```
+
 To list all volumes on your docker daemon:
+
 ```bash
 docker volume ls
 docker volume rm <VOLUME_NAME>
 ```
+
 To create self-sign certificate:
+
 ```bash
 openssl genpkey -algorithm RSA -out private.key -pkeyopt rsa_keygen_bits:2048
 openssl req -new -x509 -key private.key -out certificate.crt -days 365
