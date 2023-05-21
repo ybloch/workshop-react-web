@@ -2,7 +2,7 @@ FROM python:3.10-slim
 
 WORKDIR backend/
 
-COPY requirements.txt requirements.txt
+COPY backend/requirements.txt requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 

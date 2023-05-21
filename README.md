@@ -66,33 +66,47 @@ npm start
 
 ## Deploy
 
-To run with docker, copy the file `.env.exmaple` and call it `.env`, then edit the values.
-To build all dockers run:
+To deploy the application, follow these steps:
+
+```bash
+curl -fsSL get.docker.com | bash
+curl -SL https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+```
+
+Create a copy of the .env.example file and name it .env. Open the .env file and modify the values to match your configuration.
+
+Build all Docker containers by running the command:
 
 ```bash
 docker-compose build
-# for debug you can run
+# If you need to debug, you can run
 docker-compose build --progress plain --no-cache backend
+# to upload image to docker.hub.io
+docker login
+# lets upload
+docker-compose push 
 ```
 
-To start all dockers you can run:
+Start all Docker containers with the following command:
 
 ```bash
 docker-compose up
-# OR you can make it better with
+# Alternatively, for better output:
 docker-compose up -d && docker-compose ps && docker-compose logs -f
 ```
 
-To list all volumes on your docker daemon:
+To view a list of all volumes on your Docker daemon, use the command:
 
 ```bash
 docker volume ls
+# If needed, you can remove a specific volume by running:
 docker volume rm <VOLUME_NAME>
 ```
 
-To create self-sign certificate:
+If you require a self-signed certificate, generate it using the following commands:
 
 ```bash
 openssl genpkey -algorithm RSA -out private.key -pkeyopt rsa_keygen_bits:2048
 openssl req -new -x509 -key private.key -out certificate.crt -days 365
 ```
+That's it! Your application should now be deployed and running using Docker.
