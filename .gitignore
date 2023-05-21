@@ -5,3 +5,4 @@ backend/__pycache__/*
 .env
 frontend/certs/
 frontend/node_modules/
+backend/__pycache__/models.cpython-38.pyc
