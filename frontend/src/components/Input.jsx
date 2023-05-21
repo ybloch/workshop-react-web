@@ -26,6 +26,7 @@ export function Input(props) {
     >
       {!!getIcon(iconName) && getIcon(iconName)}
       <input
+        className="input-field"
         placeholder={placeholder}
         type={type || "text"}
         value={value}

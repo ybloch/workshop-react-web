@@ -12,7 +12,7 @@
   padding: 12px;
 }
 
-input {
+.input-field {
   border: none;
   background: transparent;
   outline: none;
