@@ -56,6 +56,7 @@ npm start
             "request": "launch",
             "module": "uvicorn",
             "cwd": "${workspaceFolder}/backend",
+            "envFile": "${workspaceFolder}/backend/.env",
             "args": [
                 "main:app"
             ],
@@ -84,7 +85,7 @@ docker-compose build --progress plain --no-cache backend
 # to upload image to docker.hub.io
 docker login
 # lets upload
-docker-compose push 
+docker-compose push
 ```
 
 Start all Docker containers with the following command:
@@ -109,4 +110,5 @@ If you require a self-signed certificate, generate it using the following comman
 openssl genpkey -algorithm RSA -out private.key -pkeyopt rsa_keygen_bits:2048
 openssl req -new -x509 -key private.key -out certificate.crt -days 365
 ```
+
 That's it! Your application should now be deployed and running using Docker.

@@ -6,13 +6,12 @@ from pymongo import MongoClient
 from dotenv import dotenv_values
 from routes import router as task_router
 
+dotenv_values(".env")
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://localhost"
-    ],
+    allow_origins=["http://localhost:3000", "https://localhost"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -22,7 +21,10 @@ app.add_middleware(
 @app.on_event("startup")
 def startup_db_client():
     app.mongodb_client = MongoClient(
-        os.getenv("MONGODB_IP"), username=os.getenv("MONGODB_USERNAME"), password=os.getenv("MONGODB_PASSWORD"))
+        os.getenv("MONGO_IP"),
+        username=os.getenv("MONGO_USER"),
+        password=os.getenv("MONGO_PASSWORD"),
+    )
     app.database = app.mongodb_client["bootcamp"]
 
 
