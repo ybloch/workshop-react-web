@@ -1,5 +1,6 @@
 # credit: https://github.com/mongodb-developer/pymongo-fastapi-crud
 import os
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
@@ -21,9 +22,11 @@ app.add_middleware(
 @app.on_event("startup")
 def startup_db_client():
     app.mongodb_client = MongoClient(
-        os.getenv("MONGO_IP"),
-        username=os.getenv("MONGO_USER"),
-        password=os.getenv("MONGO_PASSWORD"),
+        os.getenv("MONGO_URI"),
+        
+        # os.getenv("MONGO_IP"),
+        # username=os.getenv("MONGO_USER"),
+        # password=os.getenv("MONGO_PASSWORD"),
     )
     app.database = app.mongodb_client["bootcamp"]
 
@@ -34,3 +37,7 @@ def shutdown_db_client():
 
 
 app.include_router(task_router, tags=["tasks"], prefix="/api/v1/tasks")
+
+
+def main():
+    uvicorn.run(app, host="0.0.0.0", port=8000)
