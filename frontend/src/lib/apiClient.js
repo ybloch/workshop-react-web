@@ -1,4 +1,4 @@
-const SERVER_URL = "http://localhost:8000";
+const SERVER_URL = window.location.protocol + "//" + window.location.host;
 
 export const getTasks = () => {
   return fetch(`${SERVER_URL}/api/v1/tasks`).then((res) => res.json());
