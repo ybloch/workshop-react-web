@@ -9,7 +9,7 @@ function TasksView() {
       <h1>My Tasks</h1>
       <div>
         {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCard key={task._id} task={task} />
         ))}
       </div>
 
