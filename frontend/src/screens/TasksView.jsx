@@ -4,9 +4,10 @@ import TaskCard from "../components/TaskCard";
 
 function TasksView() {
   const { tasks } = React.useContext(DataContext);
+  console.log("tasks here", tasks);
   return (
     <div className="p-5">
-      <h1>My Tasks</h1>
+      <h1>My Tasks 123</h1>
       <div>
         {tasks.map((task) => (
           <TaskCard key={task._id} task={task} />

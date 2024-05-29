@@ -5,10 +5,11 @@ import { getTasks } from "./lib/apiClient";
 import TaskForm from "./screens/TaskForm";
 import TasksView from "./screens/TasksView";
 import Login from "./components/Login";
+import { Projects } from "./screens/Projects";
 
 export const DataContext = React.createContext({});
 
-function App() {
+export function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -27,6 +28,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<TasksView />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/login" element={<Login />} />
           <Route path="/tasks" element={<TasksView />} />
           <Route path="/task-form/:id?" element={<TaskForm />} />
@@ -35,5 +37,3 @@ function App() {
     </DataContext.Provider>
   );
 }
-
-export default App;

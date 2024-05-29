@@ -1,4 +1,3 @@
-
 import uuid
 from pydantic import BaseModel, Field
 
@@ -12,3 +11,9 @@ class Task(BaseModel):
 class TaskUpdate(BaseModel):
     title: str = Field(...)
     description: str = Field(...)
+
+
+class Project(BaseModel):
+    id: str = Field(default_factory=uuid.uuid4, alias="_id")
+    name: str = Field(...)
+    tasks_count: int = Field(...)

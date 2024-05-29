@@ -2,7 +2,7 @@ import React from "react";
 import { deleteTask } from "../lib/apiClient";
 
 function TaskCard(props) {
-  const { task } = props;
+  const task = props.task;
 
   const handleDeleteTask = (id) => {
     console.log("Delete task", id);

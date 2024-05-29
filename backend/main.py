@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from dotenv import dotenv_values
 from routes import router as task_router
+from projects_router import router as projects_router
 
 dotenv_values(".env")
 
@@ -20,11 +21,7 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup_db_client():
-    app.mongodb_client = MongoClient(
-        os.getenv("MONGO_IP"),
-        username=os.getenv("MONGO_USER"),
-        password=os.getenv("MONGO_PASSWORD"),
-    )
+    app.mongodb_client = MongoClient("")
     app.database = app.mongodb_client["bootcamp"]
 
 
@@ -34,3 +31,4 @@ def shutdown_db_client():
 
 
 app.include_router(task_router, tags=["tasks"], prefix="/api/v1/tasks")
+app.include_router(projects_router, tags=["projects"], prefix="/api/v1/projects")
