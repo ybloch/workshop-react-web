@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { getTasks } from "./lib/apiClient";
 import TaskForm from "./screens/TaskForm";
-import TasksView from "./screens/TasksView";
+import { TasksView } from "./screens/TasksView";
 import Login from "./components/Login";
 
 export const DataContext = React.createContext({});
@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     getTasks().then((tasksFromServer) => {
-      console.log(tasksFromServer);
+      console.log("hello me", tasksFromServer);
       setTasks(tasksFromServer);
     });
   }, []);
@@ -29,6 +29,7 @@ function App() {
           <Route path="/" element={<TasksView />} />
           <Route path="/login" element={<Login />} />
           <Route path="/tasks" element={<TasksView />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/task-form/:id?" element={<TaskForm />} />
         </Routes>
       </BrowserRouter>

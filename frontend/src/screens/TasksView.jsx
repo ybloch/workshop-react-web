@@ -2,7 +2,7 @@ import React from "react";
 import { DataContext } from "../App";
 import TaskCard from "../components/TaskCard";
 
-function TasksView() {
+export function TasksView() {
   const { tasks } = React.useContext(DataContext);
   return (
     <div className="p-5">
@@ -24,5 +24,3 @@ function TasksView() {
     </div>
   );
 }
-
-export default TasksView;

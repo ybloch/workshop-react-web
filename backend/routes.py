@@ -7,13 +7,16 @@ from models import Task, TaskUpdate
 router = APIRouter()
 
 
-@router.post("", response_description="Create a new task", status_code=status.HTTP_201_CREATED, response_model=Task)
+@router.post(
+    "",
+    response_description="Create a new task",
+    status_code=status.HTTP_201_CREATED,
+    response_model=Task,
+)
 def create_task(request: Request, task: Task = Body(...)):
     task = jsonable_encoder(task)
     new_task = request.app.database["tasks"].insert_one(task)
-    created_task = request.app.database["tasks"].find_one(
-        {"_id": new_task.inserted_id}
-    )
+    created_task = request.app.database["tasks"].find_one({"_id": new_task.inserted_id})
 
     return created_task
 
@@ -24,13 +27,16 @@ def list_tasks(request: Request):
     return tasks
 
 
-@router.get("/{id}", response_description="Get a single task by id", response_model=Task)
+@router.get(
+    "/{id}", response_description="Get a single task by id", response_model=Task
+)
 def find_task(id: str, request: Request):
     if (task := request.app.database["tasks"].find_one({"_id": id})) is not None:
         return task
 
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail=f"Task with ID {id} not found")
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail=f"Task with ID {id} not found"
+    )
 
 
 @router.put("/{id}", response_description="Update a task", response_model=Task)
@@ -44,15 +50,18 @@ def update_task(id: str, request: Request, task: TaskUpdate = Body(...)):
 
         if update_result.modified_count == 0:
             raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND, detail=f"Task with ID {id} not found")
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Task with ID {id} not found",
+            )
 
     if (
         existing_task := request.app.database["tasks"].find_one({"_id": id})
     ) is not None:
         return existing_task
 
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail=f"Task with ID {id} not found")
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail=f"Task with ID {id} not found"
+    )
 
 
 @router.delete("/{id}", response_description="Delete a task")
@@ -63,5 +72,6 @@ def delete_task(id: str, request: Request, response: Response):
         response.status_code = status.HTTP_204_NO_CONTENT
         return response
 
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail=f"Task with ID {id} not found")
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail=f"Task with ID {id} not found"
+    )
