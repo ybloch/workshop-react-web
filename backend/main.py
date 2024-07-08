@@ -1,9 +1,8 @@
 # credit: https://github.com/mongodb-developer/pymongo-fastapi-crud
-import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
-from routes import router as task_router
+from task_routes import tasks_router
 
 app = FastAPI()
 app.add_middleware(
@@ -17,6 +16,7 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup_db_client():
+
     app.mongodb_client = MongoClient("Link (Connection String) to your MongoDB")
     app.database = app.mongodb_client["bootcamp"]
 
@@ -26,4 +26,4 @@ def shutdown_db_client():
     app.mongodb_client.close()
 
 
-app.include_router(task_router, tags=["tasks"], prefix="/api/v1/tasks")
+app.include_router(tasks_router, tags=["tasks"], prefix="/api/v1/tasks")
