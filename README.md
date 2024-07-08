@@ -19,7 +19,7 @@ pip3 install -r requirements.txt
 
 ### Get the Database connection link from Mongo Atlas:
 
-Insert the link to the main.py file:
+Insert the link to the `main.py` file:
 
 ```
 MongoClient("Link (Connection String) to your MongoDB")
@@ -28,7 +28,6 @@ MongoClient("Link (Connection String) to your MongoDB")
 ### Run the API server:
 
 ```
-cd ./backend
 uvicorn main:app
 ```
 
