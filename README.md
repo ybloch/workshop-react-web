@@ -17,17 +17,6 @@ cd ./backend
 pip3 install -r requirements.txt
 ```
 
-## Frontend:
-
-### Install Javascript libraries:
-
-From base folder:
-
-```
-cd ./frontend
-npm install
-```
-
 ### Get the Database connection link from Mongo Atlas:
 
 Insert the link to the main.py file:
@@ -41,6 +30,17 @@ MongoClient("Link (Connection String) to your MongoDB")
 ```
 cd ./backend
 uvicorn main:app
+```
+
+## Frontend:
+
+### Install Javascript libraries:
+
+From base folder:
+
+```
+cd ./frontend
+npm install
 ```
 
 ### Run the Frontend react dev server:
