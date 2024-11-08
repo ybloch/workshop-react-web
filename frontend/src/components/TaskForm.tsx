@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { DataContext } from "../App";
 import { createTask, updateTask } from "../lib/apiClient";
+import { TaskUpdate } from "../types/task";
+import { Button } from "../elements/button/Button";
 
-function TaskForm() {
+export const TaskForm = () => {
   let { id } = useParams();
-  const [formValues, setFormValues] = React.useState({});
+  const [formValues, setFormValues] = React.useState<TaskUpdate>({});
   const { tasks } = React.useContext(DataContext);
   const isEdit = !!id;
 
@@ -32,7 +34,11 @@ function TaskForm() {
 
   const handleEditTask = () => {
     console.log("Update task", formValues);
-    updateTask(formValues)
+    if (!id) {
+      console.error("No id found");
+      return;
+    }
+    updateTask(id, formValues)
       .then((task) => {
         console.log(task);
       })
@@ -42,17 +48,39 @@ function TaskForm() {
   };
 
   return (
-    <div>
-      <div className="d-flex justify-content-start mt-5 ms-5">
-        <h1>{isEdit ? "Edit Task" : "Create Task"}</h1>
-      </div>
-      <div className="p-5 ">
-        <div className="my-3 row">
-          <label className="col-1" htmlFor="title">
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "24px",
+        padding: "20px",
+      }}
+    >
+      <h1>{isEdit ? "Edit Task" : "Create Task"}</h1>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
+          padding: "20px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            gap: "8px",
+            alignItems: "center",
+          }}
+        >
+          <label
+            style={{
+              width: "100px",
+            }}
+            htmlFor="title"
+          >
             Title
           </label>
           <input
-            className="col-4"
             type="text"
             id="title"
             name="title"
@@ -62,12 +90,22 @@ function TaskForm() {
             }
           />
         </div>
-        <div className="my-3 row">
-          <label className="col-1" htmlFor="description">
+        <div
+          style={{
+            display: "flex",
+            gap: "8px",
+            alignItems: "center",
+          }}
+        >
+          <label
+            style={{
+              width: "100px",
+            }}
+            htmlFor="description"
+          >
             Description
           </label>
           <input
-            className="col-4"
             type="text"
             id="description"
             name="description"
@@ -77,18 +115,16 @@ function TaskForm() {
             }
           />
         </div>
-        <div className="col-4 d-flex justify-content-center">
-          <button
-            className=""
+        <div>
+          <Button
+            variant="primary-button"
             disabled={!formValues?.title || !formValues?.description}
             onClick={isEdit ? handleEditTask : handleCreateTask}
           >
             {isEdit ? "Update Task" : "Create Task"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>
   );
-}
-
-export default TaskForm;
+};

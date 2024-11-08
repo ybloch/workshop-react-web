@@ -45,7 +45,6 @@ npm install
 ### Run the Frontend react dev server:
 
 ```
-cd ./frontend
 npm start
 ```
 

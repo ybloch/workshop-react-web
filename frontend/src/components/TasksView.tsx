@@ -1,11 +1,19 @@
 import React from "react";
 import { DataContext } from "../App";
-import TaskCard from "../components/TaskCard";
+import { Button } from "../elements/button/Button";
+import { TaskCard } from "./TaskCard";
 
-function TasksView() {
+export const TasksView = () => {
   const { tasks } = React.useContext(DataContext);
   return (
-    <div className="p-5">
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+        padding: "20px",
+      }}
+    >
       <h1>My Tasks</h1>
       <div>
         {tasks.map((task) => (
@@ -13,16 +21,14 @@ function TasksView() {
         ))}
       </div>
 
-      <button
-        className="btn btn-success mt-3 ms-2"
+      <Button
+        variant="primary-button"
         onClick={() => {
           document.location.href = "/task-form";
         }}
       >
         Add Task
-      </button>
+      </Button>
     </div>
   );
-}
-
-export default TasksView;
+};
