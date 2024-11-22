@@ -1,6 +1,6 @@
 FROM node:20-alpine as build
 
-WORKDIR frontend/
+WORKDIR /frontend/
 
 COPY frontend/ .
 
@@ -17,7 +17,6 @@ COPY --from=build /frontend/build /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 
 COPY frontend/nginx/nginx.conf /etc/nginx/conf.d
-# COPY frontend/certs /certs
 
 EXPOSE 80
 
