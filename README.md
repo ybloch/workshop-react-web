@@ -6,42 +6,45 @@
 - NodeJS 18+ and npm
 - MongoDB server
 
-## Getting started:
+# Getting started:
 
-### Install Python and Javascript libraries:
+## Backend:
+
+### Install Python libraries:
 
 ```
 cd ./backend
 pip3 install -r requirements.txt
-cd ../frontend
-npm install
 ```
 
-### Edit `.env` file with Database connection details:
+### Get the Database connection link from Mongo Atlas:
+
+Insert the link to the `main.py` file:
 
 ```
-cp ./backend/.env.example ./backend/.env
-```
-
-Enter the values:
-
-```
-MONGO_IP=localhost
-MONGO_USER=*****
-MONGO_PASSWORD=*****
+MongoClient("Link (Connection String) to your MongoDB")
 ```
 
 ### Run the API server:
 
 ```
-cd ./backend
 uvicorn main:app
+```
+
+## Frontend:
+
+### Install Javascript libraries:
+
+From base folder:
+
+```
+cd ./frontend
+npm install
 ```
 
 ### Run the Frontend react dev server:
 
 ```
-cd ./frontend
 npm start
 ```
 

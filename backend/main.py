@@ -1,15 +1,27 @@
 # credit: https://github.com/mongodb-developer/pymongo-fastapi-crud
-import os
-import uvicorn
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
-from dotenv import dotenv_values
-from routes import router as task_router
+from task_routes import tasks_router
 
-dotenv_values(".env")
 
-app = FastAPI()
+# Define startup and shutdown event handlers
+async def startup_db_client():
+    app.mongodb_client = MongoClient(
+        "mongodb+srv://<user>:<password>@cluster0.04aztqb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    )
+    app.database = app.mongodb_client["bootcamp"]
+
+
+async def shutdown_db_client():
+    app.mongodb_client.close()
+
+
+# Create the FastAPI app with event handlers
+app = FastAPI(on_startup=[startup_db_client], on_shutdown=[shutdown_db_client])
+
+# Configure CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "https://localhost"],
@@ -18,26 +30,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-@app.on_event("startup")
-def startup_db_client():
-    app.mongodb_client = MongoClient(
-        os.getenv("MONGO_URI"),
-        
-        # os.getenv("MONGO_IP"),
-        # username=os.getenv("MONGO_USER"),
-        # password=os.getenv("MONGO_PASSWORD"),
-    )
-    app.database = app.mongodb_client["bootcamp"]
-
-
-@app.on_event("shutdown")
-def shutdown_db_client():
-    app.mongodb_client.close()
-
-
-app.include_router(task_router, tags=["tasks"], prefix="/api/v1/tasks")
-
-
-def main():
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+# Include the router
+app.include_router(tasks_router, tags=["tasks"], prefix="/api/v1/tasks")
