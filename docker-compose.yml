@@ -1,6 +1,6 @@
 services:
   backend:
-    image: blelia/aws-workshop:backend-${SERVICE_VERSION}
+    image: blelia/aws-workshop-backend:0.0.1
     build:
       dockerfile: backend/Dockerfile
       context: .
@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    image: blelia/aws-workshop:frontend-${SERVICE_VERSION}
+    image: blelia/aws-workshop-frontend:0.0.1
     build:
       dockerfile: frontend/Dockerfile
       context: .
